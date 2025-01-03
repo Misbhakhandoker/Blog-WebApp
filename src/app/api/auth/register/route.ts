@@ -1,16 +1,9 @@
 import connectToDB from "@/database/config";
+import { RegisterSchema } from "@/lib/validations/auth";
 import User from "@/models/User";
 import bcryptjs from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 
-// Input validation schema
-const RegisterSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  role: z.enum(["user", "admin"]).default("user"),
-});
 
 export async function POST(req: NextRequest) {
   try {
